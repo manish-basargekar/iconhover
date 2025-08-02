@@ -1,11 +1,17 @@
-const ReactAnimated = () => {
+interface ReactAnimatedProps {
+  isAnimating?: boolean;
+}
+
+const ReactAnimated = ({ isAnimating = false }: ReactAnimatedProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="-11.5 -10.23174 23 20.46348"
-      className="w-16 h-16
-      hover:animate-[spin_500ms_ease_infinite]
-      motion-reduce:animate-none"
+      className={`w-16 h-16 motion-reduce:animate-none ${
+        isAnimating 
+          ? 'animate-[spin_500ms_ease_infinite]' 
+          : 'hover:animate-[spin_500ms_ease_infinite]'
+      }`}
     >
       <title>React Logo</title>
       <circle cx="0" cy="0" r="2.05" fill="#61dafb" />

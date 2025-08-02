@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ArcAnimated from "./components/arc";
 import BunAnimated from "./components/bun";
 import DocusaurausAnimated from "./components/docusauraus";
@@ -6,39 +7,54 @@ import TailwindAnimated from "./components/tailwind";
 import GeminiAnimated from "./components/gemini";
 import GitlabAnimated from "./components/gitlab";
 import IEAnimated from "./components/ie";
+import { useTouch } from "./hooks/useTouch";
+
 function App() {
+  const isTouchDevice = useTouch();
+  const [animatingComponents, setAnimatingComponents] = useState<Set<string>>(new Set());
+  const triggerAnimation = (componentName: string) => {
+    setAnimatingComponents(prev => new Set(prev).add(componentName));
+    setTimeout(() => {
+      setAnimatingComponents(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(componentName);
+        return newSet;
+      });
+    }, 2000); 
+  };
+
   const components = [
     {
       name: "React",
-      component: <ReactAnimated />,
+      component: <ReactAnimated isAnimating={animatingComponents.has("React")} />,
     },
     {
       name: "Tailwind",
-      component: <TailwindAnimated />,
+      component: <TailwindAnimated isAnimating={animatingComponents.has("Tailwind")} />,
     },
     {
       name: "Arc",
-      component: <ArcAnimated />,
+      component: <ArcAnimated isAnimating={animatingComponents.has("Arc")} />,
     },
     {
       name: "Bun",
-      component: <BunAnimated />,
+      component: <BunAnimated isAnimating={animatingComponents.has("Bun")} />,
     },
     {
       name: "Docusauraus",
-      component: <DocusaurausAnimated />,
+      component: <DocusaurausAnimated isAnimating={animatingComponents.has("Docusauraus")} />,
     },
     {
       name: "Gemini",
-      component: <GeminiAnimated />,
+      component: <GeminiAnimated isAnimating={animatingComponents.has("Gemini")} />,
     },
     {
       name: "Gitlab",
-      component: <GitlabAnimated />,
+      component: <GitlabAnimated isAnimating={animatingComponents.has("Gitlab")} />,
     },
     {
       name: "IE",
-      component: <IEAnimated />,
+      component: <IEAnimated isAnimating={animatingComponents.has("IE")} />,
     },  
   ];
   return (
@@ -73,10 +89,33 @@ function App() {
         {components.map((component) => (
           <div
             key={component.name}
-            className="bg-white rounded-4xl border border-gray-100 h-80 flex flex-col items-center justify-center shadow-2xs max-sm:h-60"
+            className="bg-white rounded-4xl border border-gray-100 h-80 flex flex-col items-center justify-center shadow-2xs max-sm:h-60 relative"
           >
             {component.component}
             <p className="text-sm text-gray-400 mt-4">{component.name}</p>
+            {isTouchDevice && (
+              <button
+                onClick={() => triggerAnimation(component.name)}
+                className="absolute bottom-4 right-4 w-12 h-12 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:text-gray-800 transition-colors duration-200"
+                aria-label={`Trigger ${component.name} animation`}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+                  <path d="M21 3v5h-5" />
+                  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+                  <path d="M3 21v-5h5" />
+                </svg>
+              </button>
+            )}
           </div>
         ))}
       </main>

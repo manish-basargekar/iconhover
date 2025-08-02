@@ -1,12 +1,18 @@
-const TailwindAnimated = () => {
+interface TailwindAnimatedProps {
+  isAnimating?: boolean;
+}
+
+const TailwindAnimated = ({ isAnimating = false }: TailwindAnimatedProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 100 100"
-      className="w-16 h-16
-      hover:animate-tailwind-wave
-      motion-reduce:animate-none"
+      className={`w-16 h-16 motion-reduce:animate-none ${
+        isAnimating 
+          ? 'animate-tailwind-wave' 
+          : 'hover:animate-tailwind-wave'
+      }`}
     >
       <path
         fill="#06B6D4"

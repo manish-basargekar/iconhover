@@ -1,7 +1,15 @@
-const ArcAnimated = () => {
+interface ArcAnimatedProps {
+  isAnimating?: boolean;
+}
+
+const ArcAnimated = ({ isAnimating = false }: ArcAnimatedProps) => {
   return (
     <svg
-      className="w-16 h-16 hover:animate-arc-swing"
+      className={`w-16 h-16 motion-reduce:animate-none ${
+        isAnimating 
+          ? 'animate-arc-swing' 
+          : 'hover:animate-arc-swing'
+      }`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 100 100"

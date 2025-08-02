@@ -1,8 +1,16 @@
-const BunAnimated = () => {
+interface BunAnimatedProps {
+  isAnimating?: boolean;
+}
+
+const BunAnimated = ({ isAnimating = false }: BunAnimatedProps) => {
   return (
-    <div className="p-4 group">
+    <div className={`p-4 ${!isAnimating ? 'group' : ''}`}>
       <svg
-        className="w-16 h-16 group-hover:animate-bounce"
+        className={`w-16 h-16 motion-reduce:animate-none ${
+          isAnimating 
+            ? 'animate-bounce' 
+            : 'group-hover:animate-bounce'
+        }`}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 100 100"
