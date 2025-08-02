@@ -261,4 +261,4 @@ MIT License - feel free to use these animations in your projects!
 
 ## Credits
 
-Created by [@madebymanish](https://github.com/madebymanish) | Follow on [Twitter](https://x.com/madebymanish)
+Created by [@madebymanish](https://github.com/manish-basargekar) | Follow on [Twitter](https://x.com/madebymanish)
