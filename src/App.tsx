@@ -68,7 +68,7 @@ function App() {
         </div>
         <div className="flex gap-4 col-span-1 col-start-4 items-center justify-end">
           <a
-            href="https://github.com/madebymanish"
+            href="https://github.com/manish-basargekar/iconhover"
             target="_blank"
             rel="noopener noreferrer"
           >
